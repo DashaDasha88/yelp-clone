@@ -1,9 +1,12 @@
 require("dotenv").config();
 const express = require("express");
-const app = express(); //express instance
+const cors = require("cors");
 const db = require("./db");
 
+const app = express(); //express instance
+
 //Middleware
+app.use(cors());
 app.use(express.json());
 
 //GET ALL RESTAURANTS
@@ -75,10 +78,10 @@ app.put("/api/v1/restaurants/:id", async (req, res) => {
     );
     res.status(201).json({
       status: "success",  
-      data: (
+      data: {
         restaurant: results.rows[0],
-      ),
-    }):
+      },
+    });
 
   } catch (err) {
     console.log(err);
@@ -96,7 +99,7 @@ app.delete("/api/v1/restaurants", async (req, res) => {
     );
     res.status(201).json({
       status: "success",
-    }):
+    });
 
   } catch (err) {
     console.log(err);
